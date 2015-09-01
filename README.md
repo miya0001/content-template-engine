@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/miya0001/content-template-engine.svg?branch=0.1.0)](https://travis-ci.org/miya0001/content-template-engine)
 
-Enables Twig template engine in the contents.
+Enables Twig template engine in the WordPress contents.
 
 ## How to contribute
 
@@ -15,7 +15,7 @@ $ git@github.com:miya0001/content-template-engine.git
 Change into plugin.
 
 ```
-$ cd ontent-template-engine
+$ cd content-template-engine
 ```
 
 Run `composer install`.
