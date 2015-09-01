@@ -2,7 +2,7 @@
 /*
 Plugin Name: Content Template Engine
 Version: 0.1.0
-Description: Enables Twig template engine in the contents.
+Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/
 Plugin URI: https://github.com/miya0001/content-template-engine
