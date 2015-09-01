@@ -1,0 +1,6 @@
+.grunt
+composer.phar
+node_modules
+npm-debug.log
+release
+vendor
