@@ -21,6 +21,8 @@ Hello {{ post.my_custom_field }}!
 
 {% endif %}`
 
+http://twig.sensiolabs.org/
+
 = Filter Hooks =
 
 `content_template_engine_variables`
