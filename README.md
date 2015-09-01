@@ -1,6 +1,6 @@
 # Content Template Engine
 
-[![Build Status](https://travis-ci.org/miya0001/content-template-engine.svg?branch=0.1.0)](https://travis-ci.org/miya0001/content-template-engine)
+[![Build Status](https://travis-ci.org/miya0001/content-template-engine.svg?branch=master)](https://travis-ci.org/miya0001/content-template-engine)
 
 Enables Twig template engine in the WordPress contents.
 
