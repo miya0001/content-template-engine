@@ -15,11 +15,9 @@ This plugin enables Twig template engine in the WordPress contents.
 
 You can post article like following.
 
-```
-{% if post.my_custom_field %}
+`{% if post.my_custom_field %}
     Hello {{ post.my_custom_field }}!
-{% endif %}
-```
+{% endif %}`
 
 http://twig.sensiolabs.org/
 
