@@ -14,6 +14,33 @@ You can post article like following.
 
 http://twig.sensiolabs.org/
 
+## Filter Hooks
+
+### content_template_engine_variables
+
+```
+add_filter( 'content_template_engine_variables', function( $var ){
+    $var['acf'] = get_fields();
+    $var['posts'] = get_posts( array( ... ) );
+
+    return $var;
+} );
+```
+
+Then you can use this value in the template.
+
+```
+{{ acf.foo }}
+
+<ul>
+    {% for p in posts %}
+        <li>{{ p.post_title }}</li>
+    {% endfor %}
+</ul>
+```
+
+http://twig.sensiolabs.org/doc/tags/for.html
+
 ## How to contribute
 
 Clone this repository.
