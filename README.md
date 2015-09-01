@@ -27,7 +27,7 @@ add_filter( 'content_template_engine_variables', function( $var ){
 } );
 ```
 
-Then you can use this value in the template.
+Then you can use this variables in the template.
 
 ```
 {{ acf.foo }}
