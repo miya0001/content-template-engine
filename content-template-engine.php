@@ -26,7 +26,7 @@ class Content_Template_Engine
 
 	public function plugins_loaded()
 	{
-		add_filter( 'the_content', array( $this, 'the_content' ), 11 );
+		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
 	}
 
 	public function the_content( $content )

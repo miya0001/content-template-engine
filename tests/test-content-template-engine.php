@@ -23,6 +23,30 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 		the_content();
 	}
 
+	/**
+	 * @test
+	 */
+	public function filter_hook()
+	{
+		add_filter( 'content_template_engine_variables', function( $var ){
+			$var['posts'] = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish' ) );
+			return $var;
+		} );
+
+		$args = array(
+			'post_title' => 'Hello',
+			'post_author' => 1,
+			'post_content' => '{% for p in posts %}<li>{{ p.post_title }}</li>{% endfor %}',
+			'post_status' => 'publish',
+			'post_date' => '2014-01-01 00:00:00',
+		);
+
+		$this->setup_postdata( $args );
+
+		$this->expectOutputString( "<li>Hello</li>\n" );
+		the_content();
+	}
+
 	public function setup_postdata( $args )
 	{
 		global $post;
