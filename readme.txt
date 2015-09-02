@@ -21,19 +21,25 @@ You can post article like following.
 
 http://twig.sensiolabs.org/
 
+= Supports Advanced custom fields =
+
+`Hello {{ acf.name }}!`
+
 = Filter Hooks =
 
 `content_template_engine_variables`
 
 `add_filter( 'content_template_engine_variables', function( $var ){
-    $var['acf'] = get_fields();
+    $var['fruits'] = get_fruits_as_array();
 
     return $var;
 } );`
 
 Then you can use this value in the template.
 
-`{{ acf.foo }}`
+`{% for fruit in fruits %}
+    {{ fruit }}<br>
+{% endfor %}`
 
 == Installation ==
 

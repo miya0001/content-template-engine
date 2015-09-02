@@ -14,15 +14,27 @@ You can post article like following.
 
 http://twig.sensiolabs.org/
 
+## Supports Advanced custom fields
+
+```
+Hello {{ acf.name }}!
+```
+
+or
+
+```
+{% if acf.name %}
+    Hello {{ acf.name }}!
+{% endif %}
+```
+
 ## Filter Hooks
 
 ### content_template_engine_variables
 
 ```
 add_filter( 'content_template_engine_variables', function( $var ){
-    $var['acf'] = get_fields();
-    $var['posts'] = get_posts( array( ... ) );
-
+    $var['fruits'] = get_fruits_as_array();
     return $var;
 } );
 ```
@@ -30,11 +42,9 @@ add_filter( 'content_template_engine_variables', function( $var ){
 Then you can use this variables in the template.
 
 ```
-{{ acf.foo }}
-
 <ul>
-    {% for p in posts %}
-        <li>{{ p.post_title }}</li>
+    {% for fruit in fruits %}
+        <li>{{ fruit.name }}: {{ fruit.price }}</li>
     {% endfor %}
 </ul>
 ```
