@@ -14,13 +14,22 @@ You can post article like following.
 
 http://twig.sensiolabs.org/
 
-## Supports Advanced custom fields
+## Requires
+
+* PHP 5.3 or later
+* WordPress 4.3 or later
+
+## Template examples
+
+### Template with custom field
 
 ```
-Hello {{ acf.name }}!
+`{% if post.my_custom_field %}
+    Hello {{ post.my_custom_field }}!
+{% endif %}`
 ```
 
-or
+### Template with [advanced custom fields](http://www.advancedcustomfields.com/)
 
 ```
 {% if acf.name %}
@@ -28,7 +37,7 @@ or
 {% endif %}
 ```
 
-### With acf-repeater
+#### For The Repeater Field
 
 ```
 <ul>
@@ -37,6 +46,46 @@ or
 {% endfor %}
 </ul>
 ```
+
+## Filters
+
+There are some cutom filters for WordPress.
+
+* esc_html
+* esc_attr
+* esc_textarea
+* esc_js
+* esc_url
+
+```
+{{ post.post_title | esc_html }}
+```
+
+### Add your custom filters
+
+There is an `apply_filters` filter as Twig extension.
+
+```
+{{ post.post_title | apply_filters( "my_custom_filter" ) }}
+```
+
+So, you can add custom filter functions like following.
+
+```
+add_filter( 'my_custom_filter', function( $content ){
+    return do_something( $content );
+} );
+```
+
+If you want to output HTML, you have to use `raw`.
+
+```
+{{ post.post_title | raw }}
+```
+
+See also Twig documentation:
+
+http://twig.sensiolabs.org/doc/filters/index.html
 
 ## Filter Hooks
 

@@ -27,6 +27,7 @@ class Content_Template_Engine
 	public function plugins_loaded()
 	{
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
+
 		add_filter( 'content_template_engine_content', function( $content ){
 			return do_shortcode( $content );
 		} );
