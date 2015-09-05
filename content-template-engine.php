@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Content Template Engine
-Version: 0.1.0
+Version: 0.2.0
 Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/

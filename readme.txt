@@ -1,9 +1,9 @@
 === Content Template Engine ===
 Contributors: miyauchi
-Tags: the_content, twig, post, page
+Tags: the_content, twig, post, page, template, template engine
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
