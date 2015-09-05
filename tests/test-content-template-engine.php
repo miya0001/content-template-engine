@@ -86,6 +86,10 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
 
+		add_filter( 'content_template_engine_content', function( $content ){
+			return do_shortcode( $content );
+		} );
+
 		add_shortcode( 'shortcode_test', function(){
 			return 'Hello {{ post.your_name }}!';
 		} );

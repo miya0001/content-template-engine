@@ -21,7 +21,7 @@ http://twig.sensiolabs.org/
 
 ## Template examples
 
-### Template with custom field
+### Custom fields
 
 ```
 `{% if post.my_custom_field %}
@@ -29,7 +29,7 @@ http://twig.sensiolabs.org/
 {% endif %}`
 ```
 
-### Template with [Advanced Custom Fields](http://www.advancedcustomfields.com/)
+### With [Advanced Custom Fields](http://www.advancedcustomfields.com/)
 
 ```
 {% if acf.name %}
@@ -37,7 +37,7 @@ http://twig.sensiolabs.org/
 {% endif %}
 ```
 
-#### For [The Repeater Field](http://www.advancedcustomfields.com/add-ons/repeater-field/)
+#### With [The Repeater Field](http://www.advancedcustomfields.com/add-ons/repeater-field/)
 
 ```
 <ul>
@@ -46,6 +46,18 @@ http://twig.sensiolabs.org/
 {% endfor %}
 </ul>
 ```
+
+### Conditional tags
+
+```
+{% if is_home() %}
+This is the Home.
+{% endif %}
+```
+
+See also:
+
+https://github.com/megumi-wp-composer/wp-twig/blob/master/lib/Megumi/WP/Twig/Extension.php
 
 ## Filters
 
@@ -109,6 +121,20 @@ Then you can use this variables in the template.
 ```
 
 http://twig.sensiolabs.org/doc/tags/for.html
+
+### content_template_engine_content
+
+`add_filter( 'content_template_engine_content', function( $content ){
+    return do_shortcode( $content );
+} );`
+
+## Note
+
+Some default functions are disabled.
+
+* `{{ constant() }}`
+* `{{ include() }}`
+* `{{ source() }}`
 
 ## How to contribute
 

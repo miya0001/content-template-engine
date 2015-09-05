@@ -18,19 +18,14 @@ class Content_Template_Engine
 
 	public function __construct()
 	{
-		$this->twig = new Twig_Environment( new Twig_Loader_String() );
-		$this->twig->addExtension( new Megumi\WP\Twig_Extension() );
-
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	public function plugins_loaded()
 	{
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
-
-		add_filter( 'content_template_engine_content', function( $content ){
-			return do_shortcode( $content );
-		} );
+		add_filter( 'widget_text', array( $this, 'the_content' ) );
 
 		if ( function_exists( 'get_fields' ) ) {
 			add_filter( 'content_template_engine_variables', function( $variables ){
@@ -38,6 +33,19 @@ class Content_Template_Engine
 				return $variables;
 			} );
 		}
+	}
+
+	public function init()
+	{
+		$this->twig = new Twig_Environment(
+			new Twig_Loader_String(),
+			apply_filters( 'content_template_engine_twig_options', array() )
+		);
+
+		$this->twig->addExtension( apply_filters(
+			'content_template_engine_twig_extensions',
+			new Megumi\WP\Twig_Extension() )
+		);
 	}
 
 	public function the_content( $content )

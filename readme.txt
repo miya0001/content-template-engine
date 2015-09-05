@@ -30,7 +30,7 @@ https://github.com/miya0001/content-template-engine
 * PHP 5.3 or later
 * WordPress 4.3 or later
 
-= Template examples
+= Template examples =
 
 Template with custom field:
 
@@ -83,7 +83,7 @@ http://twig.sensiolabs.org/doc/filters/index.html
 
 = Filter Hooks =
 
-`content_template_engine_variables`:
+content_template_engine_variables:
 
 `add_filter( 'content_template_engine_variables', function( $var ){
     $var['fruits'] = get_fruits_as_array();
@@ -96,6 +96,20 @@ Then you can use this variable in the template.
 `{% for fruit in fruits %}
     {{ fruit }}<br>
 {% endfor %}`
+
+content_template_engine_content:
+
+`add_filter( 'content_template_engine_content', function( $content ){
+    return do_shortcode( $content );
+} );`
+
+= Note =
+
+Some default functions are disabled.
+
+* `{{ constant() }}`
+* `{{ include() }}`
+* `{{ source() }}`
 
 == Installation ==
 
