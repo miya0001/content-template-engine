@@ -24,9 +24,9 @@ http://twig.sensiolabs.org/
 ### Custom fields
 
 ```
-`{% if post.my_custom_field %}
+{% if post.my_custom_field %}
     Hello {{ post.my_custom_field }}!
-{% endif %}`
+{% endif %}
 ```
 
 ### With [Advanced Custom Fields](http://www.advancedcustomfields.com/)
