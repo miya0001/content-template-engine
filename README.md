@@ -29,7 +29,7 @@ http://twig.sensiolabs.org/
 {% endif %}`
 ```
 
-### Template with [advanced custom fields](http://www.advancedcustomfields.com/)
+### Template with [Advanced Custom Fields](http://www.advancedcustomfields.com/)
 
 ```
 {% if acf.name %}
@@ -37,7 +37,7 @@ http://twig.sensiolabs.org/
 {% endif %}
 ```
 
-#### For The Repeater Field
+#### For [The Repeater Field](http://www.advancedcustomfields.com/add-ons/repeater-field/)
 
 ```
 <ul>
