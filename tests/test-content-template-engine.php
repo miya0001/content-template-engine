@@ -5,7 +5,7 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 	/**
 	 * @test
 	 */
-	public function the_content()
+	public function the_content_with_custom_field()
 	{
 		$args = array(
 			'post_title' => 'Hello',
@@ -18,6 +18,77 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 		$this->setup_postdata( $args );
 
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
+
+		$this->expectOutputString( "<p>Hello Pitch!</p>\n" );
+		the_content();
+	}
+
+	/**
+	 * @test
+	 */
+	public function the_content_with_no_custom_filter()
+	{
+		$args = array(
+			'post_title' => 'Hello',
+			'post_author' => 1,
+			'post_content' => 'Hello {{ post.your_name | apply_filters( "my_custom_filter" ) }}!',
+			'post_status' => 'publish',
+			'post_date' => '2014-01-01 00:00:00',
+		);
+
+		$this->setup_postdata( $args );
+
+		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
+
+		$this->expectOutputString( "<p>Hello Pitch!</p>\n" );
+		the_content();
+	}
+
+	/**
+	 * @test
+	 */
+	public function the_content_with_custom_filter()
+	{
+		$args = array(
+			'post_title' => 'Hello',
+			'post_author' => 1,
+			'post_content' => 'Hello {{ post.your_name | apply_filters( "my_custom_filter" ) }}!',
+			'post_status' => 'publish',
+			'post_date' => '2014-01-01 00:00:00',
+		);
+
+		$this->setup_postdata( $args );
+
+		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
+
+		add_filter( 'my_custom_filter', function( $content ){
+			return $content . '-san';
+		} );
+
+		$this->expectOutputString( "<p>Hello Pitch-san!</p>\n" );
+		the_content();
+	}
+
+	/**
+	 * @test
+	 */
+	public function the_content_with_shortcode()
+	{
+		$args = array(
+			'post_title' => 'Hello',
+			'post_author' => 1,
+			'post_content' => '[shortcode_test]',
+			'post_status' => 'publish',
+			'post_date' => '2014-01-01 00:00:00',
+		);
+
+		$this->setup_postdata( $args );
+
+		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
+
+		add_shortcode( 'shortcode_test', function(){
+			return 'Hello {{ post.your_name }}!';
+		} );
 
 		$this->expectOutputString( "<p>Hello Pitch!</p>\n" );
 		the_content();

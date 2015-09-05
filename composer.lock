@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "megumi/wp-twig",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/megumi-wp-composer/wp-twig.git",
-                "reference": "3d96bd77b569c6367fba0cfa3b1a3a85bbc54519"
+                "reference": "5b1d6df0fc9223662c8159f06dd6d89e7f1a6199"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/megumi-wp-composer/wp-twig/zipball/3d96bd77b569c6367fba0cfa3b1a3a85bbc54519",
-                "reference": "3d96bd77b569c6367fba0cfa3b1a3a85bbc54519",
+                "url": "https://api.github.com/repos/megumi-wp-composer/wp-twig/zipball/5b1d6df0fc9223662c8159f06dd6d89e7f1a6199",
+                "reference": "5b1d6df0fc9223662c8159f06dd6d89e7f1a6199",
                 "shasum": ""
             },
             "require": {
@@ -39,7 +39,7 @@
                     "email": "miyauchi@digitalcube.jp"
                 }
             ],
-            "time": "2015-09-01 19:17:36"
+            "time": "2015-09-05 09:52:08"
         },
         {
             "name": "twig/twig",

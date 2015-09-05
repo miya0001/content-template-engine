@@ -28,6 +28,16 @@ or
 {% endif %}
 ```
 
+### With acf-repeater
+
+```
+<ul>
+{% for fruit in acf.fruites %}
+    <li>{{ acf.fruit.name }}: {{ acf.fruit.price }}</li>
+{% endfor %}
+</ul>
+```
+
 ## Filter Hooks
 
 ### content_template_engine_variables

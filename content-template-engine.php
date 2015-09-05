@@ -27,6 +27,9 @@ class Content_Template_Engine
 	public function plugins_loaded()
 	{
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
+		add_filter( 'content_template_engine_content', function( $content ){
+			return do_shortcode( $content );
+		} );
 
 		if ( function_exists( 'get_fields' ) ) {
 			add_filter( 'content_template_engine_variables', function( $variables ){
@@ -45,7 +48,7 @@ class Content_Template_Engine
 			)
 		);
 
-		return $this->twig->render( $content, $variables );
+		return $this->twig->render( apply_filters( 'content_template_engine_content', $content ), $variables );
 	}
 }
 

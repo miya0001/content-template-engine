@@ -21,13 +21,69 @@ You can post article like following.
 
 http://twig.sensiolabs.org/
 
-= Supports Advanced custom fields =
+See more information:
 
-`Hello {{ acf.name }}!`
+https://github.com/miya0001/content-template-engine
+
+= Reuqires =
+
+* PHP 5.3 or later
+* WordPress 4.3 or later
+
+= Template examples
+
+Template with custom field:
+
+`{% if post.my_custom_field %}
+    Hello {{ post.my_custom_field }}!
+{% endif %}`
+
+Template with [advanced custom fields](http://www.advancedcustomfields.com/):
+
+`{% if acf.name %}
+    Hello {{ acf.name }}!
+{% endif %}`
+
+Template with [acf-repeater](http://www.advancedcustomfields.com/add-ons/repeater-field/):
+
+`<ul>
+{% for fruit in acf.fruites %}
+    <li>{{ acf.fruit.name }}: {{ acf.fruit.price }}</li>
+{% endfor %}
+</ul>`
+
+= Filters =
+
+There are some cutom filters for WordPress.
+
+* esc_html
+* esc_attr
+* esc_textarea
+* esc_js
+* esc_url
+* apply_filters
+
+`
+{{ post.post_title | esc_html }}
+`
+
+or
+
+`{{ post.post_title | apply_filters( "my_custom_filter" ) }}`
+
+If you want to output HTML, you have to use `raw`.
+
+`
+{{ post.post_title | raw }}
+`
+
+See also Twig documentation:
+
+http://twig.sensiolabs.org/doc/filters/index.html
 
 = Filter Hooks =
 
-`content_template_engine_variables`
+`content_template_engine_variables`:
 
 `add_filter( 'content_template_engine_variables', function( $var ){
     $var['fruits'] = get_fruits_as_array();
@@ -35,7 +91,7 @@ http://twig.sensiolabs.org/
     return $var;
 } );`
 
-Then you can use this value in the template.
+Then you can use this variable in the template.
 
 `{% for fruit in fruits %}
     {{ fruit }}<br>
@@ -45,10 +101,6 @@ Then you can use this value in the template.
 
 1. Upload to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-
-== Screenshots ==
-
-1. Insert a value from custom field.
 
 == Changelog ==
 
