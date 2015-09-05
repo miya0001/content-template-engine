@@ -17,6 +17,7 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 
 		$this->setup_postdata( $args );
 
+		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
 
 		$this->expectOutputString( "<p>Hello Pitch!</p>\n" );
@@ -38,6 +39,7 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 
 		$this->setup_postdata( $args );
 
+		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
 
 		$this->expectOutputString( "<p>Hello Pitch!</p>\n" );
@@ -59,6 +61,7 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 
 		$this->setup_postdata( $args );
 
+		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
 
 		add_filter( 'my_custom_filter', function( $content ){
@@ -84,6 +87,7 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 
 		$this->setup_postdata( $args );
 
+		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
 
 		add_filter( 'content_template_engine_content', function( $content ){
@@ -117,6 +121,8 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 		);
 
 		$this->setup_postdata( $args );
+
+		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
 
 		$this->expectOutputString( "<li>Hello</li>\n" );
 		the_content();
