@@ -118,5 +118,4 @@ Some default functions are disabled.
 
 == Changelog ==
 
-= 0.1.0 =
-* Initial release.
+https://github.com/miya0001/content-template-engine/releases
