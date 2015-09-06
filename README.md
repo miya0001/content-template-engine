@@ -24,9 +24,9 @@ http://twig.sensiolabs.org/
 ### Custom fields
 
 ```
-`{% if post.my_custom_field %}
+{% if post.my_custom_field %}
     Hello {{ post.my_custom_field }}!
-{% endif %}`
+{% endif %}
 ```
 
 ### With [Advanced Custom Fields](http://www.advancedcustomfields.com/)
@@ -124,17 +124,27 @@ http://twig.sensiolabs.org/doc/tags/for.html
 
 ### content_template_engine_content
 
-`add_filter( 'content_template_engine_content', function( $content ){
+Allows you to create template as shortcode.
+
+```
+add_filter( 'content_template_engine_content', function( $content ){
     return do_shortcode( $content );
-} );`
+} );
+```
 
 ## Note
 
-Some default functions are disabled.
+### Some default functions are disabled by security reason.
 
 * `{{ constant() }}`
 * `{{ include() }}`
 * `{{ source() }}`
+
+### Disable visual editor
+
+Visual editor sometimes breaks template, so we recommend you to disable visual editor.
+
+There is a meta box for disable Visual editor in editing screen. It is allowed only users who can publish posts.
 
 ## How to contribute
 
