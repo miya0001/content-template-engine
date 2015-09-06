@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Content Template Engine
-Version: 0.3.0
+Version: 0.4.0
 Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/
@@ -32,8 +32,9 @@ class Content_Template_Engine
 		);
 
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
-		add_filter( 'widget_text', array( $this, 'the_content' ) );
+		add_filter( 'widget_text', array( $this, 'widget_text' ) );
 		add_filter( 'user_can_richedit', array( $this, 'user_can_richedit' ) );
+		add_filter( 'content_template_engine_content', array( $this, 'content_template_engine_content' ) );
 
 		if ( function_exists( 'get_fields' ) ) {
 			add_filter( 'content_template_engine_variables', function( $variables ){
@@ -77,6 +78,23 @@ class Content_Template_Engine
 		);
 
 		return $this->twig->render( apply_filters( 'content_template_engine_content', $content ), $variables );
+	}
+
+	public function widget_text( $content )
+	{
+		$variables = apply_filters(
+			'content_template_engine_variables',
+			array(
+				'post' => $GLOBALS['post'],
+			)
+		);
+
+		return $this->twig->render( apply_filters( 'content_template_engine_content', $content ), $variables );
+	}
+
+	public function content_template_engine_content( $content )
+	{
+		return do_shortcode( $content );
 	}
 
 	public function user_can_richedit( $bool )
@@ -129,11 +147,6 @@ class Content_Template_Engine
 		}
 	}
 
-	public function get_allowed_post_types()
-	{
-		return apply_filters( 'content_template_engine_allowed_post_types', $this->allowed_post_types );
-	}
-
 	public function save_post( $post_id )
 	{
 		if ( ! isset( $_POST['content-template-engine-nonce'] ) ) {
@@ -165,6 +178,11 @@ class Content_Template_Engine
 		}
 
 		return $post_id;
+	}
+
+	private function get_allowed_post_types()
+	{
+		return apply_filters( 'content_template_engine_allowed_post_types', $this->allowed_post_types );
 	}
 }
 

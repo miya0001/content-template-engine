@@ -27,6 +27,32 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 	/**
 	 * @test
 	 */
+	public function the_content_disallow_post_type()
+	{
+		$args = array(
+			'post_title' => 'Hello',
+			'post_author' => 1,
+			'post_content' => 'Hello {{ post.your_name }}!',
+			'post_status' => 'publish',
+			'post_date' => '2014-01-01 00:00:00',
+		);
+
+		$this->setup_postdata( $args );
+
+		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
+		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
+
+		add_filter( 'content_template_engine_allowed_post_types', function(){
+			return array( 'page' );
+		} );
+
+		$this->expectOutputString( "<p>Hello {{ post.your_name }}!</p>\n" );
+		the_content();
+	}
+
+	/**
+	 * @test
+	 */
 	public function the_content_with_no_custom_filter()
 	{
 		$args = array(
@@ -89,10 +115,6 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 
 		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
 		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
-
-		add_filter( 'content_template_engine_content', function( $content ){
-			return do_shortcode( $content );
-		} );
 
 		add_shortcode( 'shortcode_test', function(){
 			return 'Hello {{ post.your_name }}!';
