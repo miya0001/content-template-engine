@@ -2,5 +2,10 @@
     "name": "miya0001/content-template-engine",
     "require": {
         "megumi/wp-twig": "*"
+    },
+    "autoload": {
+        "files": [
+            "lib/Content_Template_Engine_Twig_Extension.php"
+        ]
     }
 }

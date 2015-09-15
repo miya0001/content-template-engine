@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Content Template Engine
-Version: 0.4.0
+Version: 0.5.0
 Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/
@@ -54,10 +54,15 @@ class Content_Template_Engine
 			apply_filters( 'content_template_engine_twig_options', array() )
 		);
 
-		$this->twig->addExtension( apply_filters(
-			'content_template_engine_twig_extensions',
-			new Megumi\WP\Twig_Extension()
-		) );
+		$twig_extensions = array(
+			new Megumi\WP\Twig_Extension(),
+			new Content_Template_Engine_Twig_Extension(),
+		);
+		$twig_extensions = apply_filters( 'content_template_engine_twig_extensions', $twig_extensions );
+
+		foreach ( $twig_extensions as $extension ) {
+			$this->twig->addExtension( $extension );
+		}
 	}
 
 	public function the_content( $content )
@@ -158,8 +163,6 @@ class Content_Template_Engine
 			return $post_id;
 		}
 
-		// If this is an autosave, our form has not been submitted,
-                //     so we don't want to do anything.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return $post_id;
 		}

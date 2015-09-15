@@ -4,23 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e389785aabe4bdb7604e98ff89581c25",
+    "hash": "724fbccd073a633f71b13b2a44e322bc",
     "packages": [
         {
             "name": "megumi/wp-twig",
-            "version": "0.3.1",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/megumi-wp-composer/wp-twig.git",
-                "reference": "79c933a48258b622620963628e08941b519c85e1"
+                "reference": "759bb9f1e6ad68bb9d682d7cfbdba6e1aaf99831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/megumi-wp-composer/wp-twig/zipball/79c933a48258b622620963628e08941b519c85e1",
-                "reference": "79c933a48258b622620963628e08941b519c85e1",
+                "url": "https://api.github.com/repos/megumi-wp-composer/wp-twig/zipball/759bb9f1e6ad68bb9d682d7cfbdba6e1aaf99831",
+                "reference": "759bb9f1e6ad68bb9d682d7cfbdba6e1aaf99831",
                 "shasum": ""
             },
             "require": {
+                "php": ">=5.3",
                 "twig/twig": "~1.0"
             },
             "type": "library",
@@ -39,20 +40,20 @@
                     "email": "miyauchi@digitalcube.jp"
                 }
             ],
-            "time": "2015-09-05 17:34:53"
+            "time": "2015-09-14 14:36:27"
         },
         {
             "name": "twig/twig",
-            "version": "v1.21.1",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ca8d3aa90b6a01c82e07909fe815d6b443e75a23"
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ca8d3aa90b6a01c82e07909fe815d6b443e75a23",
-                "reference": "ca8d3aa90b6a01c82e07909fe815d6b443e75a23",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +66,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.21-dev"
+                    "dev-master": "1.22-dev"
                 }
             },
             "autoload": {
@@ -100,7 +101,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-08-26 08:58:31"
+            "time": "2015-09-15 06:50:16"
         }
     ],
     "packages-dev": [],
