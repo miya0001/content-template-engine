@@ -28,6 +28,13 @@ https://github.com/miya0001/content-template-engine
 * PHP 5.3 or later
 * WordPress 4.3 or later
 
+= How to use =
+
+* Install and activate this plugin.
+* Open post screen in your WordPress.
+* Check the "Enable the Twig template engine" in meta box.
+* Write template.
+
 = Template examples =
 
 Template with custom field:

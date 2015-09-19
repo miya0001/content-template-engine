@@ -19,6 +19,15 @@ http://twig.sensiolabs.org/
 * PHP 5.3 or later
 * WordPress 4.3 or later
 
+## How to use
+
+1. Install and activate this plugin.
+2. Open post screen in your WordPress.
+3. Check the "Enable the Twig template engine" in meta box.
+4. Write template.
+
+![](https://www.evernote.com/l/ABUZpPc5Xw5HiIEk8sbOlaUQemDl2j2Hj7wB/image.png)
+
 ## Template examples
 
 ### Custom fields
