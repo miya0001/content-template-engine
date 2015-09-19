@@ -101,32 +101,6 @@ class Content_Template_Engine_Test extends WP_UnitTestCase
 	/**
 	 * @test
 	 */
-	public function the_content_with_shortcode()
-	{
-		$args = array(
-			'post_title' => 'Hello',
-			'post_author' => 1,
-			'post_content' => '[shortcode_test]',
-			'post_status' => 'publish',
-			'post_date' => '2014-01-01 00:00:00',
-		);
-
-		$this->setup_postdata( $args );
-
-		update_post_meta( get_the_ID(), '_content_template_engine_enable_template', "1" );
-		update_post_meta( get_the_ID(), 'your_name', 'Pitch' );
-
-		add_shortcode( 'shortcode_test', function(){
-			return 'Hello {{ post.your_name }}!';
-		} );
-
-		$this->expectOutputString( "<p>Hello Pitch!</p>\n" );
-		the_content();
-	}
-
-	/**
-	 * @test
-	 */
 	public function filter_hook()
 	{
 		add_filter( 'content_template_engine_variables', function( $var ){
