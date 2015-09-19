@@ -54,7 +54,24 @@ class Content_Template_Engine_Twig_Extension extends \Twig_Extension
 			} );
 		}
 
+		$functions[] = new \Twig_SimpleFunction(
+			'include_post',
+			array( $this, 'include_post' ), 
+			array( 'needs_environment' => true, 'needs_context' => true, 'is_safe' => array( 'all' ) ) 
+		);
+
 		return $functions;
+	}
+
+	public function include_post( \Twig_Environment $env, $context, $post_id, $variables = array() )
+	{
+		if ( ! intval( $post_id ) ) {
+			return;
+		}
+
+		$post = get_post( $post_id );
+
+		return $env->resolveTemplate( $post->post_content )->render( $context );
 	}
 
 	public function getName()

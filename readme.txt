@@ -3,7 +3,7 @@ Contributors: miyauchi
 Tags: the_content, twig, post, page, template, template engine
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 0.5.1
+Stable tag: 0.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,15 +11,13 @@ Enables Twig template engine in the WordPress contents.
 
 == Description ==
 
-This plugin enables Twig template engine in the WordPress contents.
+This plugin enables [Twig template engine](http://twig.sensiolabs.org/) in the WordPress contents.
 
 You can post article like following.
 
 `{% if post.my_custom_field %}
     Hello {{ post.my_custom_field }}!
 {% endif %}`
-
-http://twig.sensiolabs.org/
 
 See more information:
 
@@ -54,22 +52,17 @@ Template with [acf-repeater](http://www.advancedcustomfields.com/add-ons/repeate
 
 = Filters =
 
-There are some cutom filters for WordPress.
+There are some custom filters for WordPress.
 
 * esc_html
 * esc_attr
 * esc_textarea
 * esc_js
 * esc_url
-* apply_filters
 
 `
 {{ post.post_title | esc_html }}
 `
-
-or
-
-`{{ post.post_title | apply_filters( "my_custom_filter" ) }}`
 
 If you want to output HTML, you have to use `raw`.
 
@@ -81,35 +74,11 @@ See also Twig documentation:
 
 http://twig.sensiolabs.org/doc/filters/index.html
 
-= Filter Hooks =
-
-content_template_engine_variables:
-
-`add_filter( 'content_template_engine_variables', function( $var ){
-    $var['fruits'] = get_fruits_as_array();
-
-    return $var;
-} );`
-
-Then you can use this variable in the template.
-
-`{% for fruit in fruits %}
-    {{ fruit }}<br>
-{% endfor %}`
-
-content_template_engine_content:
-
-`add_filter( 'content_template_engine_content', function( $content ){
-    return do_shortcode( $content );
-} );`
-
 = Note =
 
 Some default functions are disabled.
 
 * `{{ constant() }}`
-* `{{ include() }}`
-* `{{ source() }}`
 
 == Installation ==
 

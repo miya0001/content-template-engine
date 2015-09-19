@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Content Template Engine
-Version: 0.5.1
+Version: 0.6.0
 Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/
@@ -34,10 +34,14 @@ class Content_Template_Engine
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
 		add_filter( 'widget_text', array( $this, 'widget_text' ) );
 		add_filter( 'user_can_richedit', array( $this, 'user_can_richedit' ) );
-		add_filter( 'content_template_engine_content', array( $this, 'content_template_engine_content' ) );
 
+		// for Advanced custom fields
 		if ( function_exists( 'get_fields' ) ) {
 			add_filter( 'content_template_engine_variables', function( $variables ){
+				$variables['acf'] = get_fields();
+				return $variables;
+			} );
+			add_filter( 'content_template_engine_widget_variables', function( $variables ){
 				$variables['acf'] = get_fields();
 				return $variables;
 			} );
@@ -49,15 +53,26 @@ class Content_Template_Engine
 
 	public function init()
 	{
-		$this->twig = new Twig_Environment(
-			new Twig_Loader_String(),
-			apply_filters( 'content_template_engine_twig_options', array() )
-		);
+		/**
+		 * Filters the twig options.
+		 *
+		 * @param array $twig_options See http://twig.sensiolabs.org/api/master/Twig_Environment.html#method___construct.
+		 * @return array
+		 */
+		$twig_options = apply_filters( 'content_template_engine_twig_options', array() );
+		$this->twig = new Twig_Environment( new Twig_Loader_String(), $twig_options );
 
 		$twig_extensions = array(
 			new Megumi\WP\Twig_Extension(),
 			new Content_Template_Engine_Twig_Extension(),
 		);
+
+		/**
+		 * Filters the twig extensions.
+		 *
+		 * @param array $twig_extensions An objects array of twig extensions.
+		 * @return array
+		 */
 		$twig_extensions = apply_filters( 'content_template_engine_twig_extensions', $twig_extensions );
 
 		foreach ( $twig_extensions as $extension ) {
@@ -75,6 +90,12 @@ class Content_Template_Engine
 			return $content;
 		}
 
+		/**
+		 * Filters the variables for template.
+		 *
+		 * @param array $variables An array of template variables.
+		 * @return array
+		 */
 		$variables = apply_filters(
 			'content_template_engine_variables',
 			array(
@@ -82,24 +103,37 @@ class Content_Template_Engine
 			)
 		);
 
+		/**
+		 * Filters the content as template.
+		 *
+		 * @param string $content Content as template.
+		 * @return string
+		 */
 		return $this->twig->render( apply_filters( 'content_template_engine_content', $content ), $variables );
 	}
 
 	public function widget_text( $content )
 	{
+		/**
+		 * Filters the variables for template.
+		 *
+		 * @param array $variables An array of template variables.
+		 * @return array
+		 */
 		$variables = apply_filters(
-			'content_template_engine_variables',
+			'content_template_engine_widget_variables',
 			array(
 				'post' => $GLOBALS['post'],
 			)
 		);
 
-		return $this->twig->render( apply_filters( 'content_template_engine_content', $content ), $variables );
-	}
-
-	public function content_template_engine_content( $content )
-	{
-		return do_shortcode( $content );
+		/**
+		 * Filters the content as template.
+		 *
+		 * @param string $content Content as template.
+		 * @return string
+		 */
+		return $this->twig->render( apply_filters( 'content_template_engine_widget_content', $content ), $variables );
 	}
 
 	public function user_can_richedit( $bool )
@@ -113,16 +147,18 @@ class Content_Template_Engine
 
 	public function add_meta_boxes()
 	{
-		if ( current_user_can( 'publish_'.get_post_type().'s' ) ) {
+		if ( current_user_can( $this->get_capability() ) ) {
 			$screens = $this->get_allowed_post_types();
 
 			foreach ( $screens as $screen ) {
+				// add setting metabox
 				add_meta_box(
 					'content_template_engine_disable_richedit',
-					__( 'Settings for the Template Engine', 'content-template-engine' ),
+					'<span class="dashicons dashicons-admin-tools"></span> ' . __( 'Settings for the Template Engine', 'content-template-engine' ),
 					function(){
 						wp_nonce_field( 'content-template-engine-disable-richedit', 'content-template-engine-nonce' );
-						echo '<p><label>';
+						echo '<p>';
+						echo '<label>';
 						if ( "1" === get_post_meta( get_the_ID(), '_content_template_engine_enable_template', true ) ) {
 							echo '<input type="checkbox" name="content-template-engine-enable-template" value="1" checked> ';
 						} else {
@@ -137,17 +173,29 @@ class Content_Template_Engine
 							echo '<input type="checkbox" name="content-template-engine-disable-richedit" value="1"> ';
 						}
 						echo esc_html__( 'Disable the visual editor', 'content-template-engine' );
-						echo '</label></p>';
-						echo sprintf(
-							'<p><strong>%s</strong><br>%s</p>',
-							esc_html__( 'Note:', 'content-template-engine' ),
-							esc_html__( 'If you want to use Twig template in this article, we recommend you to disable visual editor.', 'content-template-engine' )
-						);
+						echo '</label><br>';
+						echo '<label>';
+						if ( "1" === get_post_meta( get_the_ID(), '_content_template_engine_disable_content_editor', true ) ) {
+							echo '<input type="checkbox" name="content-template-engine-disable-content-editor" value="1" checked> ';
+						} else {
+							echo '<input type="checkbox" name="content-template-engine-disable-content-editor" value="1"> ';
+						}
+						printf( __( 'Display the content editor only to <code>%s</code>', 'content-template-engine' ), $this->get_capability() );
+						echo '</label>';
+						echo '</p>';
 					},
 					$screen,
-					'side',
+					'advanced',
 					'low'
 				);
+			}
+		} else {
+			$screens = $this->get_allowed_post_types();
+			foreach ( $screens as $screen ) {
+				// disable content editor
+				if ( get_post_meta( get_the_ID(), '_content_template_engine_disable_content_editor', true ) ) {
+					remove_post_type_support( $screen, 'editor' );
+				}
 			}
 		}
 	}
@@ -167,7 +215,7 @@ class Content_Template_Engine
 			return $post_id;
 		}
 
-		if ( current_user_can( 'publish_'.get_post_type().'s' ) ) {
+		if ( current_user_can( $this->get_capability() ) ) {
 			if ( empty( $_POST['content-template-engine-enable-template'] ) ) {
 				update_post_meta( $post_id, '_content_template_engine_enable_template', "0" );
 			} else {
@@ -178,6 +226,11 @@ class Content_Template_Engine
 			} else {
 				update_post_meta( $post_id, '_content_template_engine_disable_richedit', "1" );
 			}
+			if ( empty( $_POST['content-template-engine-disable-content-editor'] ) ) {
+				update_post_meta( $post_id, '_content_template_engine_disable_content_editor', "0" );
+			} else {
+				update_post_meta( $post_id, '_content_template_engine_disable_content_editor', "1" );
+			}
 		}
 
 		return $post_id;
@@ -185,7 +238,24 @@ class Content_Template_Engine
 
 	private function get_allowed_post_types()
 	{
+		/**
+		 * Filters the post types that is enabled template system.
+		 *
+		 * @param array $post_types Post types like post or page.
+		 * @return array
+		 */
 		return apply_filters( 'content_template_engine_allowed_post_types', $this->allowed_post_types );
+	}
+
+	private function get_capability()
+	{
+		/**
+		 * Filters the role or capability who can enables template.
+		 *
+		 * @param string $role The role or capability.
+		 * @return string
+		 */
+		return apply_filters( 'content_template_engine_capability', 'administrator' );
 	}
 }
 

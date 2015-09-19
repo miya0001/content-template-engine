@@ -41,7 +41,7 @@ http://twig.sensiolabs.org/
 
 ```
 <ul>
-{% for fruit in acf.fruites %}
+{% for fruit in acf.fruits %}
     <li>{{ acf.fruit.name }}: {{ acf.fruit.price }}</li>
 {% endfor %}
 </ul>
@@ -54,10 +54,6 @@ http://twig.sensiolabs.org/
 This is the Home.
 {% endif %}
 ```
-
-See also:
-
-https://github.com/megumi-wp-composer/wp-twig/blob/master/lib/Megumi/WP/Twig/Extension.php
 
 ## Filters
 
@@ -73,22 +69,6 @@ There are some cutom filters for WordPress.
 {{ post.post_title | esc_html }}
 ```
 
-### Add your custom filters
-
-There is an `apply_filters` filter as Twig extension.
-
-```
-{{ post.post_title | apply_filters( "my_custom_filter" ) }}
-```
-
-So, you can add custom filter functions like following.
-
-```
-add_filter( 'my_custom_filter', function( $content ){
-    return do_something( $content );
-} );
-```
-
 If you want to output HTML, you have to use `raw`.
 
 ```
@@ -99,46 +79,11 @@ See also Twig documentation:
 
 http://twig.sensiolabs.org/doc/filters/index.html
 
-## Filter Hooks
-
-### content_template_engine_variables
-
-```
-add_filter( 'content_template_engine_variables', function( $var ){
-    $var['fruits'] = get_fruits_as_array();
-    return $var;
-} );
-```
-
-Then you can use this variables in the template.
-
-```
-<ul>
-    {% for fruit in fruits %}
-        <li>{{ fruit.name }}: {{ fruit.price }}</li>
-    {% endfor %}
-</ul>
-```
-
-http://twig.sensiolabs.org/doc/tags/for.html
-
-### content_template_engine_content
-
-Allows you to create template as shortcode.
-
-```
-add_filter( 'content_template_engine_content', function( $content ){
-    return do_shortcode( $content );
-} );
-```
-
 ## Note
 
 ### Some default functions are disabled by security reason.
 
 * `{{ constant() }}`
-* `{{ include() }}`
-* `{{ source() }}`
 
 ### Disable visual editor
 
