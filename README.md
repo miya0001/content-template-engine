@@ -16,11 +16,7 @@ http://twig.sensiolabs.org/
 
 ## Screenshot
 
-### Editor screen
-
 ![](https://www.evernote.com/l/ABX1NGcc6cZKSpJ7p9l93rLkCOMI19_In_UB/image.png)
-
-### On your site
 
 ![](https://www.evernote.com/l/ABV8L4Vn8YJM9LWXv5q8bi_lc-bhlLD_uV8B/image.png)
 
