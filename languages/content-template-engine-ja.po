@@ -3,37 +3,30 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Content Template Engine 0.3.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/content-template-engine\n"
-"POT-Creation-Date: 2015-09-05 22:01:55+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/content-template-"
+"engine\n"
+"POT-Creation-Date: 2015-09-20 10:40:03+00:00\n"
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: miyauchi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: content-template-engine.php:99
+#: content-template-engine.php:157
 msgid "Settings for the Template Engine"
 msgstr "テンプレートエンジンの設定"
 
-#: content-template-engine.php:108
+#: content-template-engine.php:167
 msgid "Enable the Twig template engine"
 msgstr "Twigテンプレートエンジンを有効化"
 
-#: content-template-engine.php:116
+#: content-template-engine.php:175
 msgid "Disable the visual editor"
 msgstr "ヴィジュアルエディターを無効化"
 
-#: content-template-engine.php:120
-msgid "Note:"
-msgstr "備考:"
-
-#: content-template-engine.php:121
-msgid ""
-"If you want to use Twig template in this article, we recommend you to "
-"disable visual editor."
-msgstr ""
-"この記事でTwigテンプレートを使う場合、ビジュアルエディターを無効化することを"
-"おすすめします。"
+#: content-template-engine.php:183
+msgid "Display the content editor only to <code>%s</code>"
+msgstr "コンテンツエディターを<code>%s</code>のみに表示"
 
 #. Plugin Name of the plugin/theme
 msgid "Content Template Engine"
@@ -55,6 +48,16 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/miya0001/"
 msgstr ""
+
+#~ msgid "Note:"
+#~ msgstr "備考:"
+
+#~ msgid ""
+#~ "If you want to use Twig template in this article, we recommend you to "
+#~ "disable visual editor."
+#~ msgstr ""
+#~ "この記事でTwigテンプレートを使う場合、ビジュアルエディターを無効化すること"
+#~ "をおすすめします。"
 
 #~ msgid "Disable the Visual Editor"
 #~ msgstr "ヴィジュアルエディターを無効化"
