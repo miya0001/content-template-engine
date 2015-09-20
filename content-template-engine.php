@@ -20,20 +20,13 @@ class Content_Template_Engine
 	public function __construct()
 	{
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	public function plugins_loaded()
 	{
-		load_plugin_textdomain(
-			"content-template-engine",
-			false,
-			dirname( plugin_basename( __FILE__ ) ).'/languages'
-		);
-
+		add_action( 'init', array( $this, 'init' ) );
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
 		add_filter( 'widget_text', array( $this, 'widget_text' ) );
-		add_filter( 'user_can_richedit', array( $this, 'user_can_richedit' ) );
 
 		// for Advanced custom fields
 		if ( function_exists( 'get_fields' ) ) {
@@ -47,8 +40,18 @@ class Content_Template_Engine
 			} );
 		}
 
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-		add_action( 'save_post', array( $this, 'save_post' ) );
+		if ( is_admin() ) {
+			load_plugin_textdomain(
+				"content-template-engine",
+				false,
+				dirname( plugin_basename( __FILE__ ) ).'/languages'
+			);
+
+			add_filter( 'user_can_richedit', array( $this, 'user_can_richedit' ) );
+
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+			add_action( 'save_post', array( $this, 'save_post' ) );
+		}
 	}
 
 	public function init()

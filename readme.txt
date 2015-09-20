@@ -92,6 +92,12 @@ Some default functions are disabled.
 1. Upload to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
+== Screenshots ==
+
+1. Settings meta box in edit posts screen.
+2. Edit posts screen.
+3. The Content.
+
 == Changelog ==
 
 https://github.com/miya0001/content-template-engine/releases
