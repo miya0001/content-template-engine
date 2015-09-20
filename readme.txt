@@ -24,6 +24,19 @@ See more information:
 * [Documentation](https://github.com/miya0001/content-template-engine/wiki)
 * [GitHub](https://github.com/miya0001/content-template-engine)
 
+= Features =
+
+## Features
+
+* It enables [Twig](http://twig.sensiolabs.org/) template engine in your WordPress contents.
+* You can use post meta data in your template.
+* [Advanced custom fields](http://www.advancedcustomfields.com/) and [Repeater Field](http://www.advancedcustomfields.com/add-ons/repeater-field/) ready.
+* Secure!
+  * You can restrict users to write template.
+  * Automatic escaping is enabled.
+* There are custom filters for WordPress. [See also](https://github.com/miya0001/content-template-engine/wiki/Filters).
+* There are custom functions for WordPress. [See also](https://github.com/miya0001/content-template-engine/wiki/Functions).
+
 = Reuqires =
 
 * PHP 5.3 or later
