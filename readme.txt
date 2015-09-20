@@ -13,7 +13,7 @@ Enables Twig template engine in the WordPress contents.
 
 This plugin enables [Twig template engine](http://twig.sensiolabs.org/) in the WordPress contents.
 
-You can post article like following.
+You can write Twig template in your posts/pages.
 
 `{% if post.my_custom_field %}
     Hello {{ post.my_custom_field }}!
@@ -21,71 +21,13 @@ You can post article like following.
 
 See more information:
 
-https://github.com/miya0001/content-template-engine
+* [Documentation](https://github.com/miya0001/content-template-engine/wiki)
+* [GitHub](https://github.com/miya0001/content-template-engine)
 
 = Reuqires =
 
 * PHP 5.3 or later
 * WordPress 4.3 or later
-
-= How to use =
-
-* Install and activate this plugin.
-* Open post screen in your WordPress.
-* Check the "Enable the Twig template engine" in meta box.
-* Write template.
-
-= Template examples =
-
-Template with custom field:
-
-`{% if post.my_custom_field %}
-    Hello {{ post.my_custom_field }}!
-{% endif %}`
-
-Template with [advanced custom fields](http://www.advancedcustomfields.com/):
-
-`{% if acf.name %}
-    Hello {{ acf.name }}!
-{% endif %}`
-
-Template with [acf-repeater](http://www.advancedcustomfields.com/add-ons/repeater-field/):
-
-`<ul>
-{% for fruit in acf.fruites %}
-    <li>{{ acf.fruit.name }}: {{ acf.fruit.price }}</li>
-{% endfor %}
-</ul>`
-
-= Filters =
-
-There are some custom filters for WordPress.
-
-* esc_html
-* esc_attr
-* esc_textarea
-* esc_js
-* esc_url
-
-`
-{{ post.post_title | esc_html }}
-`
-
-If you want to output HTML, you have to use `raw`.
-
-`
-{{ post.post_title | raw }}
-`
-
-See also Twig documentation:
-
-http://twig.sensiolabs.org/doc/filters/index.html
-
-= Note =
-
-Some default functions are disabled.
-
-* `{{ constant() }}`
 
 == Installation ==
 
