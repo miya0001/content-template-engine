@@ -26,8 +26,6 @@ See more information:
 
 = Features =
 
-## Features
-
 * It enables [Twig](http://twig.sensiolabs.org/) template engine in your WordPress contents.
 * You can use post meta data in your template.
 * [Advanced custom fields](http://www.advancedcustomfields.com/) and [Repeater Field](http://www.advancedcustomfields.com/add-ons/repeater-field/) ready.
