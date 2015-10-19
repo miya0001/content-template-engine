@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Content Template Engine
-Version: 0.7.0
+Version: 0.8.0
 Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/
@@ -47,8 +47,7 @@ class Content_Template_Engine
 				dirname( plugin_basename( __FILE__ ) ).'/languages'
 			);
 
-			add_filter( 'user_can_richedit', array( $this, 'user_can_richedit' ) );
-
+			add_action( 'wp_editor_settings', array( $this, 'wp_editor_settings' ), 10, 2 );
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 			add_action( 'save_post', array( $this, 'save_post' ) );
 		}
@@ -139,13 +138,16 @@ class Content_Template_Engine
 		return $this->twig->render( apply_filters( 'content_template_engine_widget_content', $content ), $variables );
 	}
 
-	public function user_can_richedit( $bool )
+	public function wp_editor_settings( $settings, $editor_id )
 	{
-		if ( "1" === get_post_meta( get_the_ID(), '_content_template_engine_disable_richedit', true ) ) {
-			return false;
+		$meta = get_post_meta( get_the_ID(), '_content_template_engine_disable_richedit', true );
+		if ( "1" === $meta && "content" === $editor_id ) {
+			add_filter( 'user_can_richedit', '__return_false' );
+		} else {
+			add_filter( 'user_can_richedit', '__return_true' );
 		}
 
-		return $bool;
+		return $settings;
 	}
 
 	public function add_meta_boxes()
