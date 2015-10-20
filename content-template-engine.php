@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Content Template Engine
-Version: 0.8.0
+Version: 0.9.0
 Description: Enables Twig template engine in the WordPress contents.
 Author: Takayuki Miyauchi
 Author URI: https://github.com/miya0001/
@@ -28,17 +28,26 @@ class Content_Template_Engine
 		add_filter( 'the_content', array( $this, 'the_content' ), 9 );
 		add_filter( 'widget_text', array( $this, 'widget_text' ) );
 
-		// for Advanced custom fields
-		if ( function_exists( 'get_fields' ) ) {
-			add_filter( 'content_template_engine_variables', function( $variables ){
+		// for Advanced custom fields and smart custom field
+		add_filter( 'content_template_engine_variables', function( $variables ){
+			if ( function_exists( 'get_fields' ) ) {
 				$variables['post']->acf = get_fields();
-				return $variables;
-			} );
-			add_filter( 'content_template_engine_widget_variables', function( $variables ){
+			}
+			if ( method_exists( 'SCF', 'gets' ) ) {
+				$variables['post']->scf = SCF::gets();
+			}
+			return $variables;
+		} );
+
+		add_filter( 'content_template_engine_widget_variables', function( $variables ){
+			if ( function_exists( 'get_fields' ) ) {
 				$variables['post']->acf = get_fields();
-				return $variables;
-			} );
-		}
+			}
+			if ( method_exists( 'SCF', 'gets' ) ) {
+				$variables['post']->scf = SCF::gets();
+			}
+			return $variables;
+		} );
 
 		if ( is_admin() ) {
 			load_plugin_textdomain(
