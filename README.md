@@ -18,7 +18,7 @@
 Clone this repository.
 
 ```
-$ git@github.com:miya0001/content-template-engine.git
+$ git git@github.com:miya0001/content-template-engine.git
 ```
 
 Change into plugin.
