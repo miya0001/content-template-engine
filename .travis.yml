@@ -6,16 +6,26 @@ notifications:
 
 php:
   - 5.3
-  - 5.4
-  - 5.5
   - 5.6
 
+matrix:
+  include:
+    - php: 5.3
+      env: WP_VERSION=latest WP_MULTISITE=0 WP_PULUGIN_DEPLOY=1
+
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=4.2 WP_MULTISITE=0
+  matrix:
+    - WP_VERSION=latest WP_MULTISITE=0
+    - WP_VERSION=4.2 WP_MULTISITE=0
+  global:
+    - SVN_REPO: https://plugins.svn.wordpress.org/content-template-engine/
+    - GH_REF: https://github.com/miya0001/content-template-engine.git
+    - secure: "n3LGn4TV7IAEkNBqdYvIsISvBl90egmgD+Bfz9BpOoB0no4nTWd+EnvaOsaQerlghNnW82mGGBMagX5GzdCg2ciXxI9VmtNtEygNzFCrHDgqej7Uuytr37iQAySzqY95PzoZKzgfSrYsocAkxixiiLkAMHQ0Kg2BEvfApmT6pQKTHLk+Zcni2sAUf3EGODHzdbfECmSHQaWBm+ugGWbacB6xIJRK7AXcRcQE3WaDC9tJDjh3KQeREChLVzigOPssdNcvIWzglJDTdWymVbYfK+DTXo9tXN5kKWgNX85aCG52Dbs5aPLI0UQQdDV28wyCYz1gtrUgykxChLn9pyL3zWxrYQWBis9nEULqKHto9mzh5j0RF9PA3R/zOGEefGEI1kR+U6vciubsDqzL5PZpd7vucEiS4Tduok9O0GAACbNzpRsGQWAzbgVDfsDwhVZqCkaXSHBQVDgcELgkGZ3qF8+UOGvvtmeVpEdezEOJroyBnEas95nU8tw108iQ7YoAc0zfn6rjLlVBI7u7KLHu0GI4I7NPYU/pcTrRgrl3SdGChAbHcWVJWo4p/ekNNSo48yBY/ntdnK+x3NGzhgrLnFe+rd0jkQWNAKQRjLLu3Wt81d3hLGmDAh8dAmVN2d0cb/ZEitBQcYrbp03iU9mmwMzzNnxeFhVusszu7eI2698="
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - composer install
 
 script: phpunit
+
+after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | bash
