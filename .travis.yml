@@ -1,31 +1,25 @@
 language: php
-
 notifications:
   on_success: never
   on_failure: change
-
 php:
-  - 5.3
-  - 5.6
-
+- 5.3
+- 5.6
 matrix:
   include:
-    - php: 5.3
-      env: WP_VERSION=latest WP_MULTISITE=0 WP_PULUGIN_DEPLOY=1
-
+  - php: 5.6
+    env: WP_VERSION=latest WP_MULTISITE=0 WP_PULUGIN_DEPLOY=1
 env:
   matrix:
-    - WP_VERSION=latest WP_MULTISITE=0
-    - WP_VERSION=4.2 WP_MULTISITE=0
+  - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=4.2 WP_MULTISITE=0
   global:
-    - SVN_REPO: https://plugins.svn.wordpress.org/content-template-engine/
-    - GH_REF: https://github.com/miya0001/content-template-engine.git
-    - secure: "n3LGn4TV7IAEkNBqdYvIsISvBl90egmgD+Bfz9BpOoB0no4nTWd+EnvaOsaQerlghNnW82mGGBMagX5GzdCg2ciXxI9VmtNtEygNzFCrHDgqej7Uuytr37iQAySzqY95PzoZKzgfSrYsocAkxixiiLkAMHQ0Kg2BEvfApmT6pQKTHLk+Zcni2sAUf3EGODHzdbfECmSHQaWBm+ugGWbacB6xIJRK7AXcRcQE3WaDC9tJDjh3KQeREChLVzigOPssdNcvIWzglJDTdWymVbYfK+DTXo9tXN5kKWgNX85aCG52Dbs5aPLI0UQQdDV28wyCYz1gtrUgykxChLn9pyL3zWxrYQWBis9nEULqKHto9mzh5j0RF9PA3R/zOGEefGEI1kR+U6vciubsDqzL5PZpd7vucEiS4Tduok9O0GAACbNzpRsGQWAzbgVDfsDwhVZqCkaXSHBQVDgcELgkGZ3qF8+UOGvvtmeVpEdezEOJroyBnEas95nU8tw108iQ7YoAc0zfn6rjLlVBI7u7KLHu0GI4I7NPYU/pcTrRgrl3SdGChAbHcWVJWo4p/ekNNSo48yBY/ntdnK+x3NGzhgrLnFe+rd0jkQWNAKQRjLLu3Wt81d3hLGmDAh8dAmVN2d0cb/ZEitBQcYrbp03iU9mmwMzzNnxeFhVusszu7eI2698="
-
+  - SVN_REPO: https://plugins.svn.wordpress.org/content-template-engine/
+  - GH_REF: https://github.com/miya0001/content-template-engine.git
+  - secure: fyCTFGRJcAjsM4zpou8iQzxBV6H3r3XDgyXCly6fiw7h5co5YsgSpkKCbkPjnXR16XDCm+XkgL6nKLyIjkHpEZgCAHBkkGTYf+zfSUSn+/ykM0IMa9kEhKNbUwOFv2Ii9Axnlku2u2V4O9dGnR651f/8niCM1ddD+PD+JalJbzzFDLFgaW9oATUBnaOw4Z7zY4vcoALwf7GcnJ/q71Lxpwbv6SY51c0oFCiGUNZjsTsPeZHF/s6lmCpKqL2o9MJs4YCWt5K//fgoS0Wkz+JMzCGttq810jF2wkCa1H21xp/pXfmUjU6T3ovlLi0wRWjXaCmdAXooQOzvZSD5qlq7zW4uNhQzzNmwM3lPboJnCaLQbBBhjyTOHKZVbK2V0o2i8OESaCGbdxi63WPMZZ3bnyivysnF31OLDWfzYsB/rWx991au1zP+v2hrY+vgVB/x/4/d2MDH96sftFGYeF5HjHOYZxswyADkoweqgIYg1oNdoQUN0UKiNMaY9MiiLCiCSX1J1y07aTPc3NibVs1WDKTtos3NO+F8j8j/0VecDxKHm0DvUYfK3nEzH5/t11xIY/LUwAVdxAn87JynXxpwyYBjvjlYSgGSF+kkf+FJTYaTcOT1VDQTjikLkWY3wEZFv0qxWogj17oEq5xo4a6u4E6Gn5srMGpgfsYEupyXihk=
 before_script:
-  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-  - composer install
-
+- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+- composer install
 script: phpunit
-
-after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | bash
+after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh
+  | bash
