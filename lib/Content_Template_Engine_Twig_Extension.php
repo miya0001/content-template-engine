@@ -54,6 +54,12 @@ class Content_Template_Engine_Twig_Extension extends \Twig_Extension
 			} );
 		}
 
+        $functions[] = new \Twig_SimpleFunction(
+			'get_posts',
+            array( $this, 'get_published_posts' )
+        );
+		
+
 		$functions[] = new \Twig_SimpleFunction(
 			'include_post',
 			array( $this, 'include_post' ), 
@@ -63,6 +69,34 @@ class Content_Template_Engine_Twig_Extension extends \Twig_Extension
 		return $functions;
 	}
 
+    public function getFilters() {
+        $filters = array();
+
+        $filters[] = new \Twig_SimpleFilter(
+            'render',
+            array($this, 'render'),
+            array( 'needs_environment' => true, 'needs_context' => true, 'is_safe' => array( 'all' ) )
+        );
+
+        return $filters;
+    }
+
+    /**
+     * Get published post object. This is the same as Wordpress' `get_posts()` but enforces `'post_status' => 'publish'` to prevent 'accidentally' including unpublished content
+     */
+    public function get_published_posts($args) {
+        $args['post_status'] = 'publish'; 
+        return get_posts($args);
+    }
+
+
+    /**
+     * renders the provided temlate using using the Twig template engine - optionally pass context variables to template
+     */
+    public function render( \Twig_Environment $env, $context, $template, $variables = array()) {
+        return $env->resolveTemplate( $template )->render( array_merge($context, $variables) );
+    }
+    
 	public function include_post( \Twig_Environment $env, $context, $post_id, $variables = array() )
 	{
 		if ( ! intval( $post_id ) ) {
@@ -71,9 +105,10 @@ class Content_Template_Engine_Twig_Extension extends \Twig_Extension
 
 		$post = get_post( $post_id );
 
-		return $env->resolveTemplate( $post->post_content )->render( $context );
+		return $this->render($env, $context, $post->post_content, $variables);
 	}
 
+    
 	public function getName()
 	{
 		return 'wp-content-template-engine';
